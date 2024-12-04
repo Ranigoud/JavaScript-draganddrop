@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+    <head>
+         <title>Drag and Drop</title>
+        <style>
+            
+             body{
+                padding:0;
+                margin:0;
+                box-sizing:border-box;
+                height: 100vh;
+                background-color: aqua;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+             }
+             
+             .container{
+                  position:fixed;/*drag and drop postion is must and should*/
+                  width:200px;
+                  height: 200px;
+                  display:flex;
+                  justify-content: center;
+                  align-items: center;
+                  background-color: white;
+                  user-select: none;
+             }
+             .container:hover{
+                cursor: move;/* curser move chesinapudu different angle symbol*/
+             }
+             #text{
+                color: blue;
+                font-size: 20px;
+             }
+
+        </style>
+    </head>
+        <body>
+             <h1>Drag and Drop anything in WebPage</h1>
+              <div class="container">
+                <span id="text">Drag this</span>
+              </div>
+
+            <script>
+                 let box=document.querySelector(".container");
+                  
+                 box.addEventListener("mousedown",handleMouseDown)/*drag and drop ki mousedown event unte mouse button press chesinapudu jarugutdi*/
+
+
+                 function handleMouseDown(){
+                     box.style.cursor="move"//style symbol show curser pettinnapudu
+                    box.addEventListener("mousemove",handleMouseMove)/*mouse move only box cheyadaniki event*/
+                        document.body.addEventListener("mousemove",handleMouseMove)//mouse move total document ki*/
+                         box.addEvenetListener("mouseup",handleMouseUp)//mouse release chesenapudu event mouseu
+                    }
+                      
+                    function handleMouseMove(e){//parameter in event taken mouse move chesinapudu
+                        let rect=box.getBoundingClientRect()//this is HTML METHOD BY DEFAULT PREDEFIND(DOM) METHOD DIMENSITONS NI CHUPISTHUNDI
+                         box.style.top=`${rect.top+e.movementY}px` //(react e unedi varaables tisukente $ echi template string use cheyali)//(mouse ekka kadalikanu chusitundi)top position unte current position nudi mouse move cheyagane enth distance move chesthe event unedi untha Y axis bottom avali                                      //mouse move cheyakamundu  distance its return object that X-axis and Y-axis distance chupistundi
+                         box.style.left=`${rect.left+e.movementX}px`
+                                        //current+move chesina distance
+                        }
+                        function handleMouseUp(){//mouse release chesinapudu event
+                            box.style.cursor="default"//cursor tisinapudu no symbol show
+                            document.body.removeEventListener("mousemove",handleMouseMove)//piena add chesina event remove cheyali so piena event + function remove
+
+                        }
+
+
+            </script>
+        </body>
+  </html>
